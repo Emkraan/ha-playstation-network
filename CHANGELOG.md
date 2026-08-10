@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026.8.10 (2026-08-10)
+
+### Fixed
+- Corrected manifest `documentation` URL slug (was pointing to wrong path).
+- Removed invalid `changelog` key from `hacs.json`; added missing `issue_tracker` field.
+
+### Changed
+- Repo standard compliance: CODEOWNERS, SECURITY.md, `.gitignore`, renovate.json,
+  shared ha-shared-workflows CI, funding.
+
 ## 2026.5.8 (2026-05-31)
 
 ### Changed
