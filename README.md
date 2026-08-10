@@ -4,7 +4,7 @@
 
 # PlayStation Network for Home Assistant
 
-Track your PlayStation Network presence, trophies, and active gaming sessions — with seamless token refresh that eliminates constant reauthentication.
+Track your PlayStation Network presence, trophies, and active gaming sessions - with seamless token refresh that eliminates constant reauthentication.
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![GitHub release](https://img.shields.io/github/v/release/Emkraan/homeassistant-playstationnetwork)](https://github.com/Emkraan/homeassistant-playstationnetwork/releases)
@@ -40,7 +40,7 @@ Track your PlayStation Network presence, trophies, and active gaming sessions �
 
 ## Why This Exists
 
-The built-in `playstation_network` integration requires manual reauthentication whenever its stored NPSSO token is invalidated — typically when you log out of PlayStation in the same browser session you used to get the token, or if HA is offline for an extended period.
+The built-in `playstation_network` integration requires manual reauthentication whenever its stored NPSSO token is invalidated - typically when you log out of PlayStation in the same browser session you used to get the token, or if HA is offline for an extended period.
 
 This integration fixes that by **persisting the refresh token** after the first setup. As long as HA restarts at least once every 60 days, authentication is renewed automatically and you will never see a reauth prompt.
 
@@ -48,9 +48,9 @@ This integration fixes that by **persisting the refresh token** after the first 
 
 ## Features
 
-- **Persistent authentication** — stores the OAuth refresh token after first setup; silent renewal on every restart
-- **Improved setup flow** — direct link to the Sony SSO cookie page and an optional browser bookmarklet for one-click token extraction
-- **Drop-in replacement** — same domain (`playstation_network`), identical entity IDs and state values; existing automations and dashboards keep working after switching
+- **Persistent authentication** - stores the OAuth refresh token after first setup; silent renewal on every restart
+- **Improved setup flow** - direct link to the Sony SSO cookie page and an optional browser bookmarklet for one-click token extraction
+- **Drop-in replacement** - same domain (`playstation_network`), identical entity IDs and state values; existing automations and dashboards keep working after switching
 - Online status sensor (Online, Away, Offline, Online on PS App)
 - Active game / media player per console (PS5, PS4, PS3, PS Vita, PC)
 - Game artwork image entity
@@ -70,7 +70,7 @@ This integration fixes that by **persisting the refresh token** after the first 
 | Home Assistant | 2024.1.0 or later |
 | HACS | Any version supporting custom repositories |
 | PlayStation Network account | Free or PS Plus |
-| NPSSO token | One-time setup — see [Configuration](#configuration) |
+| NPSSO token | One-time setup - see [Configuration](#configuration) |
 
 ---
 
@@ -91,7 +91,7 @@ If you currently use the built-in PlayStation Network integration:
 
 1. Go to **Settings → Devices & Services → PlayStation Network** and delete the existing entry
 2. Install this integration via HACS and restart HA
-3. Add the integration — your entity IDs will be preserved
+3. Add the integration - your entity IDs will be preserved
 
 ---
 
@@ -101,12 +101,12 @@ If you currently use the built-in PlayStation Network integration:
 
 The NPSSO token is a session cookie that Sony issues when you log in to the PlayStation website. You only need to provide it once.
 
-**Option A — Manual (always works):**
+**Option A - Manual (always works):**
 1. Log in to your [PlayStation account](https://www.playstation.com)
-2. [Open this link](https://ca.account.sony.com/api/v1/ssocookie) — a JSON page like `{"npsso":"<64-char token>"}` will appear
+2. [Open this link](https://ca.account.sony.com/api/v1/ssocookie) - a JSON page like `{"npsso":"<64-char token>"}` will appear
 3. Copy the value of `npsso` and paste it into the HA setup form
 
-**Option B — Bookmarklet (one-time install, then one click):**
+**Option B - Bookmarklet (one-time install, then one click):**
 
 Drag the link below to your browser bookmarks bar. When clicked on any PlayStation Network page while logged in, it will show your NPSSO token in a prompt for easy copying.
 
@@ -133,7 +133,7 @@ Once configured, the integration handles all token renewal automatically. Reauth
 | `sensor` | Now playing | Title of the game currently being played |
 | `sensor` | Online ID | Your PSN username |
 | `sensor` | Last online | Timestamp of last online activity |
-| `sensor` | Trophy level | Current trophy level (1–999) |
+| `sensor` | Trophy level | Current trophy level (1-999) |
 | `sensor` | Next level | Progress toward next trophy level (%) |
 | `sensor` | Platinum trophies | Total platinum trophies earned |
 | `sensor` | Gold trophies | Total gold trophies earned |
@@ -214,7 +214,7 @@ automation:
 | Reauth prompt immediately after setup | NPSSO obtained in the same browser session then logged out | Get a fresh NPSSO without logging out afterward |
 | Reauth prompt after 60+ days of HA downtime | Refresh token expired | Re-enter NPSSO via the reauth flow |
 | Entities unavailable / update errors | PSN API outage or rate limit | Wait a few minutes; integration will recover automatically |
-| Friend status not updating | Friend has set their PSN profile to private | Privacy settings block presence data — this cannot be worked around |
+| Friend status not updating | Friend has set their PSN profile to private | Privacy settings block presence data - this cannot be worked around |
 | `PSNAWPNotFoundError` on friend subentry | Friend deleted their account or changed online ID | Remove and re-add the subentry |
 
 ### Enable debug logging
@@ -238,9 +238,9 @@ Then check **Settings → System → Logs** and filter for `playstation_network`
 
 PSN uses an unofficial OAuth2-style flow built on Sony's internal mobile app credentials (reverse-engineered from the PlayStation Android app). The flow is:
 
-1. **NPSSO → authorization code** — a GET to Sony's authorize endpoint with the NPSSO cookie returns a one-time auth code
-2. **Auth code → token pair** — a POST to the token endpoint returns an access token (~1 hour TTL) and a refresh token (~60 days TTL)
-3. **Silent refresh** — before each API call, the library checks if the access token is expired and exchanges the refresh token for a new pair automatically
+1. **NPSSO → authorization code** - a GET to Sony's authorize endpoint with the NPSSO cookie returns a one-time auth code
+2. **Auth code → token pair** - a POST to the token endpoint returns an access token (~1 hour TTL) and a refresh token (~60 days TTL)
+3. **Silent refresh** - before each API call, the library checks if the access token is expired and exchanges the refresh token for a new pair automatically
 
 This integration extends that behavior by **persisting the token pair to the HA config entry** after each refresh. On restart, the stored token is injected back into the library, bypassing steps 1 and 2 entirely for up to 60 days.
 
@@ -258,4 +258,4 @@ This integration extends that behavior by **persisting the token pair to the HA 
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+MIT - see [LICENSE](LICENSE)
